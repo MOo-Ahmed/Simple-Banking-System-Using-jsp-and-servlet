@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -63,6 +64,8 @@ public class Validate extends HttpServlet {
             if(RS.next()){
                 //out.println("<p>" + RS.getString("CustomerPassword") + "</p>");
                 Con.close();
+                HttpSession session = request.getSession();
+                session.setAttribute("id", ID);
                 response.sendRedirect("customerhome.jsp");
             } else {
                 out.println("<p>Invalid user data !!</p>");

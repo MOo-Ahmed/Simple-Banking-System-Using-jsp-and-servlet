@@ -19,6 +19,7 @@
         ResultSet RS = statement.executeQuery();
         boolean result = RS.next()?true:false;
         Con.close();
+
         return result ;
     }
     
@@ -40,6 +41,25 @@
         Con.close();
         return result;
     }
+    
+    public int getAccountNumber(int ID) throws ClassNotFoundException, IOException, SQLException{
+        
+        int result = 0 ;
+        String url = "jdbc:mysql://localhost:3306/BankingSystem";
+        String user = "root";
+        String password = "";
+        Connection Con = null;
+        Class.forName("com.mysql.jdbc.Driver");
+        Con = DriverManager.getConnection(url, user, password) ;
+        String line = "SELECT * FROM BankAccount WHERE CustomerID = ?";
+        PreparedStatement statement = Con.prepareStatement(line);
+        statement.setString(1, ID+"");
+        ResultSet RS = statement.executeQuery();
+        RS.next();
+        result = RS.getInt("BankAccountID");
+        Con.close();
+        return result;
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,9 +69,17 @@
         <title>Customer Balance</title>
     </head>
     <body>
-        <h1>User name</h1>
         <%
-           int ID = 100 ;
+            
+           int ID = (Integer) session.getAttribute("id") ;
+           int bankAccNumber = getAccountNumber(ID);
+           session.setAttribute("AccID", bankAccNumber);
+           
+        %>
+        <h1>Account ID : <%=bankAccNumber%></h1>
+        <%
+            
+           
            boolean isHavingBankAccount = checkIfBankAccExist(ID);
            if(isHavingBankAccount){ %>
                 <p><b>Your Balance is :</b> <%=getCustomerBalance(ID) %> $</p>
@@ -64,5 +92,8 @@
            <%
            }
         %>
+        <form method = "get" action="transactions.jsp">
+            <input type="submit" value="View my transactions"> 
+        </form>
     </body>
 </html>
