@@ -86,6 +86,50 @@
             td,th {
                 padding : 5px 10px;
             }
+            .button {
+                background-color: #f44336;
+                padding: 12px 28px;
+                font-size: 16px;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                transition-duration: 0.4s;
+            }
+
+            .button:hover {
+              background-color: #ffcc00; 
+              color: white;
+            }
+            table {
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 80%;
+              }
+
+              table td, table th {
+                border: 1px solid #ddd;
+                padding: 8px;
+              }
+
+              table tr:nth-child(even){background-color: #f2f2f2;}
+
+              table tr:hover {background-color: #ddd;}
+
+              table th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                background-color: #000000;
+                color: white;
+              }
+              input[type=text], input[type=password] {
+                padding: 12px 20px;
+                margin: 8px 0;
+                border: none;
+                border-bottom: 2px solid red;
+            }
         </style>
     </head>
     <body>
@@ -134,8 +178,11 @@
                     <% if (isRemovable == true) { %>
 
                     <form method="get" action="ProcessTransferCancelling">
-                        <input type='hidden' value=<%= RS.getInt("BankTransactionID")%>>
-                        <input type="submit" value="Cancel">
+                        <input type='hidden' name="TrID" value=<%= RS.getInt("BankTransactionID")%>>
+                        <input type='hidden' name="AccID" value=<%= RS.getInt("BTFromAccount")%>>
+                        <input type='hidden' name="AccID2" value=<%= RS.getInt("BTToAccount")%>>
+                        <input type='hidden' name="Amount" value=<%= RS.getInt("BTAmount")%>>
+                        <input type="submit" value="Cancel" class="button">
                     </form>    
                     <%
                                 } else { %>
@@ -163,16 +210,13 @@
             <br><br><br>
             Amount to transfer  :  <input type="text" name="amount"> 
             <input type="hidden" name="AccID" value=<%=AccID%>>
-            <input type="submit" value="Transfer now" >
+            <input type="submit" value="Transfer now" class="button" >
         </form>
-            <br><br><br><p id="f"></p><br><br><br>
-        <%
-            
-        %>
+        
         
 
         <br><br><br>
-        <a href="customerhome.jsp" style="border-radius: 5px; background-color: #ffcc00; padding: 4px; text-decoration: none; margin:5px; ">Back to home</a>
+        <a href="customerhome.jsp" class="button">Back to home</a>
 
     </body>
 </html>

@@ -7,13 +7,37 @@
         <title>Login page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .button {
+                background-color: #f44336;
+                padding: 12px 28px;
+                font-size: 16px;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                transition-duration: 0.4s;
+            }
+
+            .button:hover {
+              background-color: #ffcc00; 
+              color: white;
+            }
+            input[type=text], input[type=password] {
+                padding: 12px 20px;
+                margin: 8px 0;
+                border: none;
+                border-bottom: 2px solid red;
+            }
+        </style>
     </head>
     <body>
-        <div>login now</div>
+        <h2>login now</h2>
         <form name="loginForm" action="Validate" method="get">
-            ID : <input name="ID" type="text">
-            Password : <input name="password" type="password">
-            <input type="submit">
+            ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="ID" type="text"> <br> <br>
+            Password : <input name="password" type="password">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" class="button" value="Login">
         </form>
     </body>
 </html>

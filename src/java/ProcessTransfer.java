@@ -26,10 +26,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/ProcessTransfer"})
 public class ProcessTransfer extends HttpServlet {
     public String validateTransfer(String id1, String id2, String _amount) throws ClassNotFoundException, IOException, SQLException {
+        String result = "";
+
+        if(id1 == "" || id2 == "" || _amount == ""){
+            result = "Wrong data" ;
+            return result;
+        }
         int AccID = Integer.parseInt(id1);
         int AccID2 = Integer.parseInt(id2);
         double Amount = Double.parseDouble(_amount);
-        String result = "";
         String url = "jdbc:mysql://localhost:3306/BankingSystem";
         String user = "root";
         String password = "";

@@ -67,6 +67,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Balance</title>
+        <style>
+            .button {
+                background-color: #f44336;
+                padding: 12px 28px;
+                font-size: 16px;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                transition-duration: 0.4s;
+            }
+
+            .button:hover {
+              background-color: #ffcc00; 
+              color: white;
+            }
+        </style>        
     </head>
     <body>
         <%
@@ -87,11 +105,11 @@
            }
            else{%>
                 <form action="addAccount">
-                    <input type="submit" value="Add bank account"> 
+                    <input type="submit" value="Add bank account" class="button"> 
                 </form>
            <%
            }
         %>
-        <a href="transactions.jsp">View my transactions</a>
+        <br><br><a href="transactions.jsp" class="button">View my transactions</a>
     </body>
 </html>
