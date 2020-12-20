@@ -92,8 +92,6 @@
            <%
            }
         %>
-        <form method = "get" action="transactions.jsp">
-            <input type="submit" value="View my transactions"> 
-        </form>
+        <a href="transactions.jsp">View my transactions</a>
     </body>
 </html>
