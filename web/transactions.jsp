@@ -34,7 +34,7 @@
             if (Amount > balance) {
                 result = "Failed .. Your balance can't satisfy the transfer";
             } else if (Amount <= 0.0) {
-                result = "Failed .. invalid amount"; 
+                result = "Failed .. invalid amount";
             } else {
                 line = "SELECT * FROM BankAccount WHERE BankAccountID = ?";
                 statement = Con.prepareStatement(line);
@@ -64,7 +64,7 @@
                         statement.setInt(2, AccID);
                         statement.setInt(3, AccID2);
                         statement.executeUpdate();
-                        
+
                     } else {
                         result = "Something went wrong";
                     }
@@ -74,7 +74,7 @@
         }
         Con.close();
         return result;
-    } 
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -99,32 +99,32 @@
             }
 
             .button:hover {
-              background-color: #ffcc00; 
-              color: white;
+                background-color: #ffcc00; 
+                color: white;
             }
             table {
                 text-align: center;
                 font-family: Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
                 width: 80%;
-              }
+            }
 
-              table td, table th {
+            table td, table th {
                 border: 1px solid #ddd;
                 padding: 8px;
-              }
+            }
 
-              table tr:nth-child(even){background-color: #f2f2f2;}
+            table tr:nth-child(even){background-color: #f2f2f2;}
 
-              table tr:hover {background-color: #ddd;}
+            table tr:hover {background-color: #ddd;}
 
-              table th {
+            table th {
                 padding-top: 12px;
                 padding-bottom: 12px;
                 background-color: #000000;
                 color: white;
-              }
-              input[type=text], input[type=password] {
+            }
+            input[type=text], input[type=password] {
                 padding: 12px 20px;
                 margin: 8px 0;
                 border: none;
@@ -142,12 +142,13 @@
             Connection Con = null;
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, user, password);
-            String line = "SELECT BankTransactionID, BTFromAccount, BTToAccount, BTAmount, BTCreationDate as ut FROM BankTransaction WHERE BTFromAccount = ? ORDER BY BTCreationDate Desc";
+            String line = "SELECT BankTransactionID, BTFromAccount, BTToAccount, BTAmount, BTCreationDate as ut FROM BankTransaction WHERE BTFromAccount = ? OR BTToAccount = ? ORDER BY BTCreationDate Desc";
             PreparedStatement statement = Con.prepareStatement(line);
             statement.setString(1, AccID + "");
+            statement.setString(2, AccID + "");
             ResultSet RS = statement.executeQuery();
             boolean isFree = true; %>
-            <table style="text-align:center; background-color: #ccccff; margin:auto" border='1px' cellspacing='5px'>
+        <table style="text-align:center; background-color: #ccccff; margin:auto" border='1px' cellspacing='5px'>
             <tr>
                 <th> Transaction ID </th>
                 <th> From </th>
@@ -162,8 +163,10 @@
                     boolean isRemovable = true;
                     java.sql.Timestamp d = RS.getTimestamp("ut");
                     double timestamp = d.getTime() / 1000, currTimestamp = System.currentTimeMillis() / 1000;
+                    int btfrom = RS.getInt("BTFromAccount");
+                    int btto = RS.getInt("BTToAccount");
 
-                    if ((currTimestamp - timestamp) >= 86400) {
+                    if ((currTimestamp - timestamp) >= 86400 || btfrom != AccID) {
                         isRemovable = false;
                     }
 
@@ -171,11 +174,11 @@
             %>
             <tr>
                 <td><%= RS.getInt("BankTransactionID")%></td>
-                <td><%= RS.getInt("BTFromAccount")%></td>
-                <td><%= RS.getInt("BTToAccount")%></td>
+                <td><%= btfrom%></td>
+                <td><%= btto%></td>
                 <td><%= RS.getDouble("BTAmount")%></td>
                 <td>
-                    <% if (isRemovable == true) { %>
+                    <% if (isRemovable == true) {%>
 
                     <form method="get" action="ProcessTransferCancelling">
                         <input type='hidden' name="TrID" value=<%= RS.getInt("BankTransactionID")%>>
@@ -185,7 +188,7 @@
                         <input type="submit" value="Cancel" class="button">
                     </form>    
                     <%
-                                } else { %>
+                    } else { %>
                     <p>No</p>
                     <%
                         }
@@ -197,7 +200,7 @@
             %>
         </table>
         <%
-                if (isFree) { %>
+            if (isFree) { %>
         <p text-align="center">Sorry, You have no transactions yet</p>
         <%
             }
@@ -212,8 +215,8 @@
             <input type="hidden" name="AccID" value=<%=AccID%>>
             <input type="submit" value="Transfer now" class="button" >
         </form>
-        
-        
+
+
 
         <br><br><br>
         <a href="customerhome.jsp" class="button">Back to home</a>
