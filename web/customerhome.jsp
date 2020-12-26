@@ -55,8 +55,10 @@
         PreparedStatement statement = Con.prepareStatement(line);
         statement.setString(1, ID+"");
         ResultSet RS = statement.executeQuery();
-        RS.next();
-        result = RS.getInt("BankAccountID");
+        if(RS.next()){
+            result = RS.getInt("BankAccountID");
+        }
+        else result = -1 ;
         Con.close();
         return result;
     }
@@ -91,10 +93,16 @@
             
            int ID = (Integer) session.getAttribute("id") ;
            int bankAccNumber = getAccountNumber(ID);
-           session.setAttribute("AccID", bankAccNumber);
+           if(bankAccNumber != -1){
+            session.setAttribute("AccID", bankAccNumber);
+           }
+           String accountID = "" ;
+           if(bankAccNumber == -1){
+               accountID = "---" ;
+           }
            
         %>
-        <h1>Account ID : <%=bankAccNumber%></h1>
+        <h1>Account ID : <%=accountID%></h1>
         <%
             
            
@@ -105,11 +113,14 @@
            }
            else{%>
                 <form action="addAccount">
+                    <input name = "ID" type="hidden" value="<%=ID%>">
                     <input type="submit" value="Add bank account" class="button"> 
                 </form>
            <%
            }
+           if(isHavingBankAccount == true){
         %>
         <br><br><a href="transactions.jsp" class="button">View my transactions</a>
+        <%}%>
     </body>
 </html>

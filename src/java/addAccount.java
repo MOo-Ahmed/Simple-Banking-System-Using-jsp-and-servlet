@@ -37,15 +37,14 @@ public class addAccount extends HttpServlet {
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int ID = 100;
+            int ID = Integer.parseInt(request.getParameter("ID"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Add account</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("</body>");
-            out.println("</html>");
+            
                 
             
             String url = "jdbc:mysql://localhost:3306/BankingSystem";
@@ -61,7 +60,12 @@ public class addAccount extends HttpServlet {
             int R = Stmt.executeUpdate(line);
             Con.close();
             Stmt.close();
-            response.sendRedirect("customerhome.jsp");
+            //response.sendRedirect("customerhome.jsp");
+            out.println("<p>Account created successfully<p>");
+            out.println("<a href='customerhome.jsp' style='border-radius: 5px; background-color: #ffcc00; padding: 4px; text-decoration: none; margin:5px; '>Back to customer home</a>");
+
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

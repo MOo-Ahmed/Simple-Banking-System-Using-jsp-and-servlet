@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NetBeansFiles/BankingSystem/web/transactions.jsp</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/src/java/ProcessTransferCancelling.java</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/src/java/ProcessTransfer.java</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/src/java/Validate.java</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/web/customerhome.jsp</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/web/index.html</file>
-            <file>file:/D:/NetBeansFiles/BankingSystem/src/java/addAccount.java</file>
+            <file>file:/D:/FCAI-CU%20material/4-1/Internet%20Applications/Assignments/2/BankingSystem/web/customerhome.jsp</file>
+            <file>file:/D:/FCAI-CU%20material/4-1/Internet%20Applications/Assignments/2/BankingSystem/src/java/addAccount.java</file>
+            <file>file:/D:/FCAI-CU%20material/4-1/Internet%20Applications/Assignments/2/BankingSystem/src/java/ProcessTransfer.java</file>
         </group>
     </open-files>
 </project-private>
